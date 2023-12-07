@@ -36,6 +36,9 @@ header {
 
 .app-content {
 	flex: 1;
+	padding-top: 6rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
 }
 
 footer {
@@ -47,5 +50,11 @@ footer {
 .app-width-container {
 	width: 100%;
 	margin: auto;
-	max-width: 80rem;
+	max-width: 60rem;
+}
+
+@media screen and (max-width: 768px) {
+	.app-content {
+		padding-top: 3rem;
+	}
 }

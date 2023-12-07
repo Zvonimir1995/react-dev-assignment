@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => {
 			<header>
 				<div className="app-width-container">React Developer Assignment</div>
 			</header>
-			<main className="app-content">{children}</main>
+			<main className="app-content app-width-container">{children}</main>
 			<footer></footer>
 		</div>
 	);
