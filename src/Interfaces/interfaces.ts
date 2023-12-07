@@ -24,6 +24,10 @@ export interface UserModel {
 	company: CompanyModel;
 }
 
+export type FormattedUsers = {
+	[key: string]: UserModel;
+};
+
 export interface AddressModel {
 	street: string;
 	suite: string;

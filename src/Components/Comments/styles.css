@@ -1,0 +1,15 @@
+.comment-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	background-color: rgb(240, 242, 245);
+	border-radius: 10px;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+}
+
+.comment-name {
+	font-size: 1rem;
+	font-weight: 600;
+	margin-right: 1rem;
+}

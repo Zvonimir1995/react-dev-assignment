@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-import { UserModel } from '../../Interfaces/interfaces';
+import { FormattedUsers } from '../../Interfaces/interfaces';
 
 type Props = {
-	users: UserModel[] | undefined;
+	users: FormattedUsers | undefined;
 };
 
 const PostPage = ({ users }: Props) => {

@@ -36,9 +36,7 @@ header {
 
 .app-content {
 	flex: 1;
-	padding-top: 6rem;
-	padding-left: 2rem;
-	padding-right: 2rem;
+	padding: 6rem 2rem;
 }
 
 footer {
