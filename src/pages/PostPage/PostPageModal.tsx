@@ -10,7 +10,7 @@ type Props = {
 	users: FormattedUsers;
 };
 
-const PostPage = ({ users }: Props) => {
+const PostPageModal = ({ users }: Props) => {
 	const { postId } = useParams();
 
 	const [post, setPost] = useState<PostModel>();
@@ -34,4 +34,4 @@ const PostPage = ({ users }: Props) => {
 	return <PostItem users={users} post={post} />;
 };
 
-export default PostPage;
+export default PostPageModal;

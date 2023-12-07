@@ -8,7 +8,7 @@ import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
 import './styles.css';
 
 type Props = {
-	users: FormattedUsers | undefined;
+	users: FormattedUsers;
 };
 
 const PostsPage = ({ users }: Props) => {
@@ -56,7 +56,7 @@ const PostsPage = ({ users }: Props) => {
 				🔎
 			</div>
 			{postsToShow?.map((post) => {
-				return <PostItem key={post.id} post={post} users={users} />;
+				return <PostItem key={post.id} post={post} users={users} postsPage />;
 			})}
 		</div>
 	);
