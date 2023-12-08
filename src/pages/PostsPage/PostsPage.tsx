@@ -51,10 +51,6 @@ const PostsPage = ({ users }: Props) => {
 		});
 	}, [filter, allPosts, users]);
 
-	useEffect(() => {
-		if (!allPosts) return;
-	}, [allPosts, filteredPosts]);
-
 	if (loading || !users) {
 		return <></>;
 	}
