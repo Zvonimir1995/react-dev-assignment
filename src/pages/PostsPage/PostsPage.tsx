@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
 import { PostService } from '../../api/services/PostService/PostService';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import InfiniteScrollList from '../../Components/InfiniteScrollList/InfiniteScrollList';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
 
@@ -12,11 +13,15 @@ type Props = {
 	users: FormattedUsers;
 };
 
+const POSTS_IN_ONE_BATCH = 10;
+
 const PostsPage = ({ users }: Props) => {
 	const [loading, setLoading] = useState(true);
 	const [allPosts, setAllPosts] = useState<PostModel[]>();
 	const [filter, setFilter] = useState('');
 	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
+	const [showPostPages, setShowPostPages] = useState<number>(1);
+	const canRenderMore = useRef<boolean>(true);
 
 	useEffect(() => {
 		PostService.getPosts()
@@ -51,6 +56,17 @@ const PostsPage = ({ users }: Props) => {
 		});
 	}, [filter, allPosts, users]);
 
+	const fetchNewPage: () => Promise<null> = () => {
+		setShowPostPages((prevState) => {
+			const newState = prevState + 1;
+			if (POSTS_IN_ONE_BATCH * newState >= 100) {
+				canRenderMore.current = false;
+			}
+			return newState;
+		});
+		return new Promise((resolve) => resolve(null));
+	};
+
 	if (loading || !users) {
 		return <></>;
 	}
@@ -58,9 +74,18 @@ const PostsPage = ({ users }: Props) => {
 	return (
 		<div className="posts-page-container">
 			<PostsFilter setFilter={setFilter} />
-			{filteredPosts?.map((post) => {
+			<InfiniteScrollList
+				items={filteredPosts?.slice(0, POSTS_IN_ONE_BATCH * showPostPages)}
+				scrollingEl={window}
+				canRenderMore={canRenderMore.current}
+				fetchNewPage={fetchNewPage}
+				renderItem={(post) => {
+					return <PostItem key={post.id} post={post} users={users} postsPage />;
+				}}
+			/>
+			{/* {filteredPosts?.map((post) => {
 				return <PostItem key={post.id} post={post} users={users} postsPage />;
-			})}
+			})} */}
 		</div>
 	);
 };

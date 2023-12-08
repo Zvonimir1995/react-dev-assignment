@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './styles.css';
 
@@ -8,6 +8,18 @@ type Props = {
 };
 
 const CustomModal = ({ children, closeModal }: Props) => {
+	useEffect(() => {
+		const body = document.querySelector('body');
+		if (body) {
+			body.style.paddingRight = '6px';
+		}
+		return () => {
+			if (body) {
+				body.style.paddingRight = 'unset';
+			}
+		};
+	}, []);
+
 	return (
 		<div className="modal-presentation">
 			<div onClick={closeModal} className="modal-up-backdrop"></div>
