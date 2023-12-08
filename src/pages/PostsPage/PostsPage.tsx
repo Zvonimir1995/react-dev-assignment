@@ -44,7 +44,7 @@ const PostsPage = ({ users }: Props) => {
 	}
 
 	return (
-		<div className="posts-container">
+		<div className="posts-page-container">
 			<div className="filter-container">
 				<label htmlFor="posts-filter">Filter by user</label>
 				<input
@@ -53,7 +53,13 @@ const PostsPage = ({ users }: Props) => {
 					id="posts-filter"
 					type="text"
 				/>{' '}
-				🔎
+				<span
+					onClick={() => {
+						console.log('clicked');
+					}}
+				>
+					🔎
+				</span>
 			</div>
 			{postsToShow?.map((post) => {
 				return <PostItem key={post.id} post={post} users={users} postsPage />;

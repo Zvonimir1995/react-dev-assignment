@@ -31,7 +31,7 @@ const PostPageModal = ({ users }: Props) => {
 
 	if (loading || !post) return <></>;
 
-	return <PostItem users={users} post={post} />;
+	return <PostItem users={users} post={post} overlay />;
 };
 
 export default PostPageModal;

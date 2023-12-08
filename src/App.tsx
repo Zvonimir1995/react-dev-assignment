@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import axios from 'axios';
 import {
@@ -25,6 +25,10 @@ const App = () => {
 	const [lastNonOverlayRoute, setLastNonOverlayRoute] = useState<Location | undefined>();
 	const [users, setUsers] = useState<FormattedUsers>();
 
+	const displayInOverlay = useMemo(() => {
+		return location.state === 'overlay';
+	}, [location]);
+
 	useEffect(() => {
 		axios.get<UserModel[]>('https://jsonplaceholder.typicode.com/users').then((res) => {
 			const formattedUsers: FormattedUsers = {};
@@ -38,15 +42,17 @@ const App = () => {
 	useEffect(() => {
 		if (location.state !== 'overlay') {
 			setLastNonOverlayRoute(location);
-			console.log(location);
 		}
 	}, [location]);
 
-	const displayInOverlay = location.state === 'overlay';
-
 	useEffect(() => {
-		console.log(lastNonOverlayRoute);
-	}, [lastNonOverlayRoute]);
+		const body = document.querySelector('body') as HTMLElement;
+		if (displayInOverlay) {
+			body.style.overflow = 'hidden';
+		} else {
+			body.style.overflow = 'auto';
+		}
+	}, [displayInOverlay]);
 
 	if (!users) {
 		return (

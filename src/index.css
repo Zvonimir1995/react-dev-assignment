@@ -51,6 +51,28 @@ footer {
 	max-width: 60rem;
 }
 
+::-webkit-scrollbar {
+	width: 6px;
+	height: 22px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: gray;
+	border-radius: 5px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #0672b8;
+}
+
 @media screen and (max-width: 768px) {
 	.app-content {
 		padding-top: 3rem;

@@ -1,24 +1,46 @@
-.modal {
+.modal-presentation {
 	position: fixed;
-	z-index: 5;
-	background-color: white;
-	width: 70%;
-	border: 1px solid #ccc;
-	box-shadow: 1px 1px 1px black;
-	padding: 16px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	box-sizing: border-box;
-	transition: all 0.3s ease-out;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	/* bg-gray-500 bg-opacity-30 backdrop-blur-[2px] backdrop-filter */
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(2px);
 }
 
-.backdrop {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	background-color: rgba(0, 0, 0, 0.5);
+.modal-up-backdrop {
+	flex: 1;
+	min-height: 4rem;
+}
+
+.modal-content-horizontal-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.modal-content {
+	width: 40rem;
+	max-width: 80vw;
+}
+
+.modal-down-backdrop {
+	flex: 1;
+	min-height: 6rem;
+}
+
+.modal-side-backdrop {
+	min-width: 1rem;
+	flex: 1;
+}
+
+@media screen and (max-width: 768px) {
+	.modal-side-backdrop {
+		min-width: 0.5rem;
+	}
 }

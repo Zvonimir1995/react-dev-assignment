@@ -1,4 +1,4 @@
-.posts-container {
+.posts-page-container {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
@@ -23,4 +23,12 @@
 #posts-filter:focus-visible {
 	outline: none;
 	border-color: lightseagreen;
+}
+
+.posts-page-container .post-item {
+	cursor: pointer;
+}
+
+.posts-page-container .post-item:hover {
+	background-color: #f8f8f8;
 }

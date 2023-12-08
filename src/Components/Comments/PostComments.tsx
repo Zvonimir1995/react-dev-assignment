@@ -9,11 +9,13 @@ import CommentItem from './CommentItem';
 type Props = {
 	postId: number;
 	users: FormattedUsers;
+	postsPage?: boolean;
 };
 
-const PostComments = ({ postId, users }: Props) => {
+const PostComments = ({ postId, users, postsPage }: Props) => {
 	const [comments, setComments] = useState<CommentModel[]>();
 	const [commentsLoading, setCommentsLoading] = useState(true);
+	const [showComments, setShowComments] = useState(!postsPage);
 
 	useEffect(() => {
 		axios
@@ -33,9 +35,21 @@ const PostComments = ({ postId, users }: Props) => {
 
 	return (
 		<>
-			{comments.map((comment) => {
-				return <CommentItem key={comment.id} comment={comment} users={users} />;
-			})}
+			<div
+				onClick={(event) => {
+					if (!postsPage) return;
+					event.stopPropagation();
+					setShowComments((prevState) => !prevState);
+				}}
+				className="comments-count"
+			>
+				Comments ({comments.length})
+			</div>
+
+			{showComments &&
+				comments.map((comment) => {
+					return <CommentItem key={comment.id} comment={comment} users={users} />;
+				})}
 		</>
 	);
 };
