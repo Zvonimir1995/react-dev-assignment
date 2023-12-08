@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import PostItem from '../../Components/PostItem/PostItem';
+import PostsFilter from '../../Components/PostsFilter/PostsFilter';
 import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
 
 import './styles.css';
@@ -13,15 +14,15 @@ type Props = {
 
 const PostsPage = ({ users }: Props) => {
 	const [loading, setLoading] = useState(true);
-	const [posts, setPosts] = useState<PostModel[]>();
+	const [allPosts, setAllPosts] = useState<PostModel[]>();
+	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
 	const [postsToShow, setPostsToShow] = useState<PostModel[]>();
-	const [filterByUserInput, setFilterByUserInput] = useState('');
 
 	useEffect(() => {
 		axios
 			.get<PostModel[]>('https://jsonplaceholder.typicode.com/posts')
 			.then((response) => {
-				setPosts(response.data);
+				setAllPosts(response.data);
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -31,12 +32,17 @@ const PostsPage = ({ users }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (!posts) return;
-		setPostsToShow(posts.slice(0, 10));
-	}, [posts]);
+		if (!allPosts) return;
+		setPostsToShow(allPosts.slice(0, 10));
+	}, [allPosts]);
 
-	const filterInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setFilterByUserInput(event.target.value);
+	const changeToFilteredPosts = (posts: 'all' | PostModel[]) => {
+		if (posts === 'all') {
+			setPostsToShow(allPosts?.slice(0, 10));
+		} else {
+			setFilteredPosts(posts);
+			setPostsToShow(posts.slice(0, 10));
+		}
 	};
 
 	if (loading || !users) {
@@ -45,22 +51,7 @@ const PostsPage = ({ users }: Props) => {
 
 	return (
 		<div className="posts-page-container">
-			<div className="filter-container">
-				<label htmlFor="posts-filter">Filter by user</label>
-				<input
-					value={filterByUserInput}
-					onChange={filterInputChangeHandler}
-					id="posts-filter"
-					type="text"
-				/>{' '}
-				<span
-					onClick={() => {
-						console.log('clicked');
-					}}
-				>
-					🔎
-				</span>
-			</div>
+			<PostsFilter users={users} changeToFilteredPosts={changeToFilteredPosts} />
 			{postsToShow?.map((post) => {
 				return <PostItem key={post.id} post={post} users={users} postsPage />;
 			})}

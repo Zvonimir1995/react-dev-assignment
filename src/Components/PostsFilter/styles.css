@@ -1,0 +1,20 @@
+.filter-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+#posts-filter {
+	padding: 6px 2px 2px 2px;
+	font-size: 16px;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+#posts-filter:focus-visible {
+	outline: none;
+	border-color: lightseagreen;
+}
