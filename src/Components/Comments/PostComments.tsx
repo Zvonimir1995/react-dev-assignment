@@ -35,15 +35,16 @@ const PostComments = ({ postId, users, postsPage }: Props) => {
 
 	return (
 		<>
-			<div
-				onClick={(event) => {
-					if (!postsPage) return;
-					event.stopPropagation();
-					setShowComments((prevState) => !prevState);
-				}}
-				className="comments-count"
-			>
-				Comments ({comments.length})
+			<div className="comments-count">
+				<span
+					onClick={(event) => {
+						if (!postsPage) return;
+						event.stopPropagation();
+						setShowComments((prevState) => !prevState);
+					}}
+				>
+					{postsPage && (showComments ? 'Hide' : 'Show')} Comments ({comments.length})
+				</span>
 			</div>
 
 			{showComments &&
