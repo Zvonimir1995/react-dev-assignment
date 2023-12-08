@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import { PostModel } from '../../api/services/PostService/interfaces';
+import { PostService } from '../../api/services/PostService/PostService';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
-import { PostModel } from '../../Interfaces/interfaces';
 
 type Props = {
 	users: FormattedUsers;
@@ -18,10 +18,9 @@ const PostPage = ({ users }: Props) => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		axios
-			.get<PostModel>(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+		PostService.getPost({ postId: Number(postId) })
 			.then((response) => {
-				setPost(response.data);
+				setPost(response);
 				setLoading(false);
 			})
 			.catch((error) => {

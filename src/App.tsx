@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import axios from 'axios';
 import {
 	Location,
 	Navigate,
@@ -11,7 +10,8 @@ import {
 	useNavigate
 } from 'react-router-dom';
 
-import { FormattedUsers, UserModel } from './api/services/UsersService/interfaces';
+import { FormattedUsers } from './api/services/UsersService/interfaces';
+import { UsersService } from './api/services/UsersService/UsersService';
 import CustomModal from './Components/Modal/CustomModal';
 import Layout from './Layout/Layout';
 import PostPage from './pages/PostPage/PostPage';
@@ -30,9 +30,9 @@ const App = () => {
 	}, [location]);
 
 	useEffect(() => {
-		axios.get<UserModel[]>('https://jsonplaceholder.typicode.com/users').then((res) => {
+		UsersService.getUsers().then((users) => {
 			const formattedUsers: FormattedUsers = {};
-			res.data.forEach((user) => {
+			users.forEach((user) => {
 				formattedUsers[user.id] = user;
 			});
 			setUsers(formattedUsers);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
+import { PostModel } from '../../api/services/PostService/interfaces';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
-import { PostModel } from '../../Interfaces/interfaces';
 
 import './styles.css';
 

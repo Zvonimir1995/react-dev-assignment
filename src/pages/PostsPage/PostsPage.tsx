@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
-
+import { PostModel } from '../../api/services/PostService/interfaces';
+import { PostService } from '../../api/services/PostService/PostService';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
-import { PostModel } from '../../Interfaces/interfaces';
 
 import './styles.css';
 
@@ -20,10 +19,9 @@ const PostsPage = ({ users }: Props) => {
 	const [postsToShow, setPostsToShow] = useState<PostModel[]>();
 
 	useEffect(() => {
-		axios
-			.get<PostModel[]>('https://jsonplaceholder.typicode.com/posts')
-			.then((response) => {
-				setAllPosts(response.data);
+		PostService.getPosts()
+			.then((res) => {
+				setAllPosts(res);
 				setLoading(false);
 			})
 			.catch((error) => {
