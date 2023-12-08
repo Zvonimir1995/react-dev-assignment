@@ -15,13 +15,14 @@ type Props = {
 const PostsPage = ({ users }: Props) => {
 	const [loading, setLoading] = useState(true);
 	const [allPosts, setAllPosts] = useState<PostModel[]>();
+	const [filter, setFilter] = useState('');
 	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
-	const [postsToShow, setPostsToShow] = useState<PostModel[]>();
 
 	useEffect(() => {
 		PostService.getPosts()
 			.then((res) => {
 				setAllPosts(res);
+				setFilteredPosts(res);
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -31,18 +32,28 @@ const PostsPage = ({ users }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (!allPosts) return;
-		setPostsToShow(allPosts.slice(0, 10));
-	}, [allPosts]);
-
-	const changeToFilteredPosts = (posts: 'all' | PostModel[]) => {
-		if (posts === 'all') {
-			setPostsToShow(allPosts?.slice(0, 10));
-		} else {
-			setFilteredPosts(posts);
-			setPostsToShow(posts.slice(0, 10));
+		if (filter === '') {
+			setFilteredPosts(allPosts);
+			return;
 		}
-	};
+		const filteredUserIds: number[] = [];
+		Object.keys(users).forEach((key) => {
+			if (users[key].name.toLowerCase().includes(filter.toLowerCase())) {
+				filteredUserIds.push(users[key].id);
+			}
+		});
+		PostService.getPosts({
+			queryParams: {
+				userId: filteredUserIds
+			}
+		}).then((res) => {
+			setFilteredPosts(res);
+		});
+	}, [filter, allPosts, users]);
+
+	useEffect(() => {
+		if (!allPosts) return;
+	}, [allPosts, filteredPosts]);
 
 	if (loading || !users) {
 		return <></>;
@@ -50,8 +61,8 @@ const PostsPage = ({ users }: Props) => {
 
 	return (
 		<div className="posts-page-container">
-			<PostsFilter users={users} changeToFilteredPosts={changeToFilteredPosts} />
-			{postsToShow?.map((post) => {
+			<PostsFilter setFilter={setFilter} />
+			{filteredPosts?.map((post) => {
 				return <PostItem key={post.id} post={post} users={users} postsPage />;
 			})}
 		</div>

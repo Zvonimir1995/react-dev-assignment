@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 
-import { PostModel } from '../../api/services/PostService/interfaces';
-import { FormattedUsers } from '../../api/services/UsersService/interfaces';
-
 import './styles.css';
 
 type Props = {
-	users: FormattedUsers;
-	changeToFilteredPosts: (posts: 'all' | PostModel[]) => void;
+	// changeToFilteredPosts: (posts: 'all' | PostModel[]) => void;
+	setFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const PostsFilter = ({ users, changeToFilteredPosts }: Props) => {
+const PostsFilter = ({ setFilter }: Props) => {
 	const [filterByUserInput, setFilterByUserInput] = useState('');
 	const [requestTimeout, setRequestTimeout] = useState<NodeJS.Timeout>();
 
@@ -20,18 +17,9 @@ const PostsFilter = ({ users, changeToFilteredPosts }: Props) => {
 		}
 		setFilterByUserInput(event.target.value);
 		const timeout = setTimeout(() => {
-			fetchFilteredPosts(event.target.value);
-		}, 2000);
+			setFilter(event.target.value);
+		}, 1000);
 		setRequestTimeout(timeout);
-	};
-
-	const fetchFilteredPosts = (filter: string) => {
-		const filteredUserIds: number[] = [];
-		Object.keys(users).forEach((key) => {
-			if (users[key].name.toLowerCase().includes(filter.toLowerCase())) {
-				filteredUserIds.push(users[key].id);
-			}
-		});
 	};
 
 	return (

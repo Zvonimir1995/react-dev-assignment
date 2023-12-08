@@ -1,5 +1,5 @@
 export const getQueryParamsString = (
-	queryParams: { [key: string]: string | string[] | number | boolean | null } | undefined
+	queryParams: { [key: string]: string | string[] | number | number[] | boolean | null } | undefined
 ) => {
 	let queryParamsString = '';
 	if (!queryParams) return queryParamsString;

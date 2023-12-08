@@ -12,7 +12,7 @@ export interface PostModel {
 
 export interface GetPostsData {
 	queryParams?: {
-		userId: string[];
+		userId: number[];
 	};
 }
 
