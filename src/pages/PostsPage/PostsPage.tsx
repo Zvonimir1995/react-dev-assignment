@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
-import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
+import { PostModel } from '../../Interfaces/interfaces';
 
 import './styles.css';
 

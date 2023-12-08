@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
-import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
+import { PostModel } from '../../Interfaces/interfaces';
 
 type Props = {
 	users: FormattedUsers;

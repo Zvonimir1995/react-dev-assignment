@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
-import { FormattedUsers } from '../../Interfaces/interfaces';
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 
 import './styles.css';
 

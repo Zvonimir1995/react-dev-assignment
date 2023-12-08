@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import { PostModel } from '../../Interfaces/interfaces';
+
 import './styles.css';
-import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
 
 type Props = {
 	users: FormattedUsers;

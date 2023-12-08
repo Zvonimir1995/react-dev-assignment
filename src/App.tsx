@@ -11,8 +11,8 @@ import {
 	useNavigate
 } from 'react-router-dom';
 
+import { FormattedUsers, UserModel } from './api/services/UsersService/interfaces';
 import CustomModal from './Components/Modal/CustomModal';
-import { FormattedUsers, UserModel } from './Interfaces/interfaces';
 import Layout from './Layout/Layout';
 import PostPage from './pages/PostPage/PostPage';
 import PostPageModal from './pages/PostPage/PostPageModal';

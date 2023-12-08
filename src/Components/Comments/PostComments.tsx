@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { CommentService } from '../../api/services/CommentSerivce/CommentService';
 import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
-import { FormattedUsers } from '../../Interfaces/interfaces';
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 
 import CommentItem from './CommentItem';
 

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { FormattedUsers, PostModel } from '../../Interfaces/interfaces';
+import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import { PostModel } from '../../Interfaces/interfaces';
 import PostComments from '../Comments/PostComments';
 
 import './styles.css';
