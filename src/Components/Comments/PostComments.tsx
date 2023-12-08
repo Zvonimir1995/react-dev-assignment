@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
-
-import { CommentModel, FormattedUsers } from '../../Interfaces/interfaces';
+import { CommentService } from '../../api/services/CommentSerivce/CommentService';
+import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
+import { FormattedUsers } from '../../Interfaces/interfaces';
 
 import CommentItem from './CommentItem';
 
@@ -18,10 +18,9 @@ const PostComments = ({ postId, users, postsPage }: Props) => {
 	const [showComments, setShowComments] = useState(!postsPage);
 
 	useEffect(() => {
-		axios
-			.get<CommentModel[]>(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+		CommentService.getComments(postId)
 			.then((response) => {
-				setComments(response.data);
+				setComments(response);
 				setCommentsLoading(false);
 			})
 			.catch(() => {
