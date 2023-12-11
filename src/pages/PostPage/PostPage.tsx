@@ -6,19 +6,23 @@ import { PostModel } from '../../api/services/PostService/interfaces';
 import { PostService } from '../../api/services/PostService/PostService';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
 type Props = {
 	users: FormattedUsers;
+	helloMessage?: string;
 };
 
-const PostPage = ({ users }: Props) => {
+const PostPage = ({ users, helloMessage }: Props) => {
 	const navigate = useNavigate();
 	const { postId } = useParams();
 
 	const [post, setPost] = useState<PostModel>();
 	const [loading, setLoading] = useState(true);
+
+	useGreetFromComponent(helloMessage, 'PostPage.tsx');
 
 	useEffect(() => {
 		PostService.getPost({ postId: Number(postId) })

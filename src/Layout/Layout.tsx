@@ -1,10 +1,15 @@
 import React from 'react';
 
+import { useGreetFromComponent } from '../global/greetFromCmpHook';
+
 type Props = {
 	children: React.ReactNode;
+	helloMessage?: string;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, helloMessage }: Props) => {
+	useGreetFromComponent(helloMessage, 'Layout.tsx');
+
 	return (
 		<div className="app-layout">
 			<header>

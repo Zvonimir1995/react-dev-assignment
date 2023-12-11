@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+
 import './styles.css';
 
 type Props = {
 	children: React.ReactNode;
 	closeModal: VoidFunction;
+	helloMessage?: string;
 };
 
-const CustomModal = ({ children, closeModal }: Props) => {
+const CustomModal = ({ children, closeModal, helloMessage }: Props) => {
+	useGreetFromComponent(helloMessage, 'CustomModal.tsx');
+
 	useEffect(() => {
 		const body = document.querySelector('body');
 		if (body) {

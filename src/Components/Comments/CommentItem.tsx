@@ -2,15 +2,18 @@ import React from 'react';
 
 import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
 type Props = {
 	comment: CommentModel;
 	users: FormattedUsers;
+	helloMessage?: string;
 };
 
-const CommentItem = ({ comment }: Props) => {
+const CommentItem = ({ comment, helloMessage }: Props) => {
+	useGreetFromComponent(helloMessage, 'CommentItem.tsx');
 	return (
 		<div className="comment-item">
 			<p>

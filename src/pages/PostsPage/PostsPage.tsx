@@ -6,22 +6,26 @@ import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import InfiniteScrollList from '../../Components/InfiniteScrollList/InfiniteScrollList';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
 type Props = {
 	users: FormattedUsers;
+	helloMessage?: string;
 };
 
 const POSTS_IN_ONE_BATCH = 10;
 
-const PostsPage = ({ users }: Props) => {
+const PostsPage = ({ users, helloMessage }: Props) => {
 	const [loading, setLoading] = useState(true);
 	const [allPosts, setAllPosts] = useState<PostModel[]>();
 	const [filterPostsField, setFilterPostsField] = useState('');
 	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
 	const [showPostPages, setShowPostPages] = useState<number>(1);
 	const canRenderMore = useRef<boolean>(true);
+
+	useGreetFromComponent(helloMessage, 'PostsPage');
 
 	useEffect(() => {
 		PostService.getPosts()
@@ -83,9 +87,6 @@ const PostsPage = ({ users }: Props) => {
 					return <PostItem key={post.id} post={post} users={users} isPostsPage />;
 				}}
 			/>
-			{/* {filteredPosts?.map((post) => {
-				return <PostItem key={post.id} post={post} users={users} postsPage />;
-			})} */}
 		</div>
 	);
 };

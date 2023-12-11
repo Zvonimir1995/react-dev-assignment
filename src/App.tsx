@@ -13,6 +13,7 @@ import {
 import { FormattedUsers } from './api/services/UsersService/interfaces';
 import { UsersService } from './api/services/UsersService/UsersService';
 import CustomModal from './Components/Modal/CustomModal';
+import { useGreetFromComponent } from './global/greetFromCmpHook';
 import Layout from './Layout/Layout';
 import PostPage from './pages/PostPage/PostPage';
 import PostPageModal from './pages/PostPage/PostPageModal';
@@ -21,6 +22,8 @@ import PostsPage from './pages/PostsPage/PostsPage';
 const App = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	useGreetFromComponent(undefined, 'App.tsx');
 
 	const [lastNonOverlayRoute, setLastNonOverlayRoute] = useState<Location | undefined>();
 	const [users, setUsers] = useState<FormattedUsers>();
@@ -55,21 +58,8 @@ const App = () => {
 	}, [displayInOverlay]);
 
 	if (!users) {
-		return (
-			<Layout>
-				<div
-					style={{
-						height: '100%',
-						width: '100%',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center'
-					}}
-				>
-					loading users
-				</div>
-			</Layout>
-		);
+		// wait for users to be loaded
+		return <></>;
 	}
 
 	return (

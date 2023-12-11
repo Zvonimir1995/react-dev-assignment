@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { CommentService } from '../../api/services/CommentSerivce/CommentService';
 import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import CommentItem from './CommentItem';
 
@@ -10,12 +11,15 @@ type Props = {
 	postId: number;
 	users: FormattedUsers;
 	isPostsPage?: boolean;
+	helloMessage?: string;
 };
 
-const PostComments = ({ postId, users, isPostsPage }: Props) => {
+const PostComments = ({ postId, users, isPostsPage, helloMessage }: Props) => {
 	const [comments, setComments] = useState<CommentModel[]>();
 	const [commentsLoading, setCommentsLoading] = useState(true);
 	const [showComments, setShowComments] = useState(!isPostsPage);
+
+	useGreetFromComponent(helloMessage, 'PostComments.tsx');
 
 	useEffect(() => {
 		CommentService.getComments(postId)

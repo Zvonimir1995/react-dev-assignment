@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
@@ -10,6 +11,7 @@ type Props = {
 	items: PostModel[] | undefined;
 	canRenderMore: boolean;
 	fetchNewPage: () => Promise<null>;
+	helloMessage?: string;
 };
 
 const InfiniteScrollList = ({
@@ -17,10 +19,13 @@ const InfiniteScrollList = ({
 	renderItem,
 	scrollingEl,
 	canRenderMore,
-	fetchNewPage
+	fetchNewPage,
+	helloMessage
 }: Props) => {
 	const scrollDebounce = useRef<boolean>(false);
 	const infiniteScrollListContainerRef = useRef<HTMLDivElement>(null);
+
+	useGreetFromComponent(helloMessage, 'InfiniteScrollList.tsx');
 
 	const handleScroll = useCallback(() => {
 		if (!infiniteScrollListContainerRef.current) return;

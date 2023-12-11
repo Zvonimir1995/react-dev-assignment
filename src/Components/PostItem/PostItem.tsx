@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
+import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 import PostComments from '../Comments/PostComments';
 
 import './styles.css';
@@ -12,10 +13,13 @@ type Props = {
 	post: PostModel;
 	users: FormattedUsers;
 	isPostsPage?: boolean;
+	helloMessage?: string;
 };
 
-const PostItem = ({ users, post, isPostsPage }: Props) => {
+const PostItem = ({ users, post, isPostsPage, helloMessage }: Props) => {
 	const navigate = useNavigate();
+
+	useGreetFromComponent(helloMessage, 'PostItem.tsx');
 
 	return (
 		<div
