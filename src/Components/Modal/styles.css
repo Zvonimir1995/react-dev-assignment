@@ -27,6 +27,7 @@
 .modal-content {
 	width: 40rem;
 	max-width: 80vw;
+	position: relative;
 }
 
 .modal-down-backdrop {
@@ -37,6 +38,27 @@
 .modal-side-backdrop {
 	min-width: 1rem;
 	flex: 1;
+}
+
+.close-modal-container {
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	font-size: 0.875rem;
+	border-radius: 9999px;
+	background-color: red;
+	color: white;
+}
+
+.close-modal-container:hover {
+	opacity: 0.6;
 }
 
 @media screen and (max-width: 768px) {

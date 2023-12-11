@@ -11,38 +11,24 @@ import './styles.css';
 type Props = {
 	post: PostModel;
 	users: FormattedUsers;
-	postsPage?: boolean;
-	overlay?: boolean;
+	isPostsPage?: boolean;
 };
 
-const PostItem = ({ users, post, postsPage, overlay }: Props) => {
+const PostItem = ({ users, post, isPostsPage }: Props) => {
 	const navigate = useNavigate();
-
-	const closePost = () => {
-		if (overlay) {
-			navigate(-1);
-		} else {
-			navigate('/posts');
-		}
-	};
 
 	return (
 		<div
 			onClick={() => {
-				if (!postsPage) return;
+				if (!isPostsPage) return;
 				navigate(`/post/${post.id}`, { state: 'overlay' });
 			}}
 			className="post-item"
 		>
-			{!postsPage && (
-				<div onClick={closePost} className="close-post-item-container">
-					x
-				</div>
-			)}
 			<h3>{post.title}</h3>
 			<p>{post.body}</p>
 			<div className="post-author">{users[post.userId].name}</div>
-			<PostComments users={users} postId={post.id} postsPage={postsPage} />
+			<PostComments users={users} postId={post.id} isPostsPage={isPostsPage} />
 		</div>
 	);
 };

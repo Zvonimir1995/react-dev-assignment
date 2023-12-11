@@ -47,9 +47,7 @@ const InfiniteScrollList = ({
 
 	return (
 		<div className="infinite-scroll-list-container" ref={infiniteScrollListContainerRef}>
-			{items?.map((post) => {
-				return renderItem(post);
-			})}
+			{items?.map(renderItem)}
 		</div>
 	);
 };

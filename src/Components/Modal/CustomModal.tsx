@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	children: React.ReactNode;
@@ -8,6 +9,8 @@ type Props = {
 };
 
 const CustomModal = ({ children, closeModal }: Props) => {
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const body = document.querySelector('body');
 		if (body) {
@@ -15,7 +18,7 @@ const CustomModal = ({ children, closeModal }: Props) => {
 		}
 		return () => {
 			if (body) {
-				body.style.paddingRight = 'unset';
+				body.style.paddingRight = '0px';
 			}
 		};
 	}, []);
@@ -25,7 +28,13 @@ const CustomModal = ({ children, closeModal }: Props) => {
 			<div onClick={closeModal} className="modal-up-backdrop"></div>
 			<div className="modal-content-horizontal-wrapper">
 				<div onClick={closeModal} className="modal-side-backdrop"></div>
-				<div className="modal-content">{children}</div>
+				<div className="modal-content">
+					<div onClick={() => navigate(-1)} className="close-modal-container">
+						x
+					</div>
+
+					{children}
+				</div>
 				<div onClick={closeModal} className="modal-side-backdrop"></div>
 			</div>
 			<div onClick={closeModal} className="modal-down-backdrop"></div>

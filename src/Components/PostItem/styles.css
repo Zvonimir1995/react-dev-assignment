@@ -18,23 +18,3 @@
 	align-self: flex-end;
 	font-size: 1.125rem;
 }
-
-.close-post-item-container {
-	cursor: pointer;
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 1.5rem;
-	height: 1.5rem;
-	font-size: 0.875rem;
-	border-radius: 9999px;
-	background-color: red;
-	color: white;
-}
-
-.close-post-item-container:hover {
-	opacity: 0.6;
-}

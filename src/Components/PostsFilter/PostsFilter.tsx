@@ -3,21 +3,20 @@ import React, { useState } from 'react';
 import './styles.css';
 
 type Props = {
-	// changeToFilteredPosts: (posts: 'all' | PostModel[]) => void;
-	setFilter: React.Dispatch<React.SetStateAction<string>>;
+	setFilterPostsField: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const PostsFilter = ({ setFilter }: Props) => {
-	const [filterByUserInput, setFilterByUserInput] = useState('');
+const PostsFilter = ({ setFilterPostsField }: Props) => {
+	const [filterByUserInputValue, setFilterByUserInputValue] = useState('');
 	const [requestTimeout, setRequestTimeout] = useState<NodeJS.Timeout>();
 
 	const filterInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (requestTimeout) {
 			clearTimeout(requestTimeout);
 		}
-		setFilterByUserInput(event.target.value);
+		setFilterByUserInputValue(event.target.value);
 		const timeout = setTimeout(() => {
-			setFilter(event.target.value);
+			setFilterPostsField(event.target.value);
 		}, 1000);
 		setRequestTimeout(timeout);
 	};
@@ -26,18 +25,12 @@ const PostsFilter = ({ setFilter }: Props) => {
 		<div className="filter-container">
 			<label htmlFor="posts-filter">Filter by user</label>
 			<input
-				value={filterByUserInput}
+				value={filterByUserInputValue}
 				onChange={filterInputChangeHandler}
 				id="posts-filter"
 				type="text"
 			/>{' '}
-			<span
-				onClick={() => {
-					console.log('clicked');
-				}}
-			>
-				🔎
-			</span>
+			<span>🔎</span>
 		</div>
 	);
 };

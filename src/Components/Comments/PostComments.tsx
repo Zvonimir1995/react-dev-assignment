@@ -9,13 +9,13 @@ import CommentItem from './CommentItem';
 type Props = {
 	postId: number;
 	users: FormattedUsers;
-	postsPage?: boolean;
+	isPostsPage?: boolean;
 };
 
-const PostComments = ({ postId, users, postsPage }: Props) => {
+const PostComments = ({ postId, users, isPostsPage }: Props) => {
 	const [comments, setComments] = useState<CommentModel[]>();
 	const [commentsLoading, setCommentsLoading] = useState(true);
-	const [showComments, setShowComments] = useState(!postsPage);
+	const [showComments, setShowComments] = useState(!isPostsPage);
 
 	useEffect(() => {
 		CommentService.getComments(postId)
@@ -37,12 +37,12 @@ const PostComments = ({ postId, users, postsPage }: Props) => {
 			<div className="comments-count">
 				<span
 					onClick={(event) => {
-						if (!postsPage) return;
+						if (!isPostsPage) return;
 						event.stopPropagation();
 						setShowComments((prevState) => !prevState);
 					}}
 				>
-					{postsPage && (showComments ? 'Hide' : 'Show')} Comments ({comments.length})
+					{isPostsPage && (showComments ? 'Hide' : 'Show')} Comments ({comments.length})
 				</span>
 			</div>
 

@@ -18,7 +18,7 @@ const POSTS_IN_ONE_BATCH = 10;
 const PostsPage = ({ users }: Props) => {
 	const [loading, setLoading] = useState(true);
 	const [allPosts, setAllPosts] = useState<PostModel[]>();
-	const [filter, setFilter] = useState('');
+	const [filterPostsField, setFilterPostsField] = useState('');
 	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
 	const [showPostPages, setShowPostPages] = useState<number>(1);
 	const canRenderMore = useRef<boolean>(true);
@@ -37,13 +37,13 @@ const PostsPage = ({ users }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (filter === '') {
+		if (filterPostsField === '') {
 			setFilteredPosts(allPosts);
 			return;
 		}
 		const filteredUserIds: number[] = [];
 		Object.keys(users).forEach((key) => {
-			if (users[key].name.toLowerCase().includes(filter.toLowerCase())) {
+			if (users[key].name.toLowerCase().includes(filterPostsField.toLowerCase())) {
 				filteredUserIds.push(users[key].id);
 			}
 		});
@@ -54,7 +54,7 @@ const PostsPage = ({ users }: Props) => {
 		}).then((res) => {
 			setFilteredPosts(res);
 		});
-	}, [filter, allPosts, users]);
+	}, [filterPostsField, allPosts, users]);
 
 	const fetchNewPage: () => Promise<null> = () => {
 		setShowPostPages((prevState) => {
@@ -73,14 +73,14 @@ const PostsPage = ({ users }: Props) => {
 
 	return (
 		<div className="posts-page-container">
-			<PostsFilter setFilter={setFilter} />
+			<PostsFilter setFilterPostsField={setFilterPostsField} />
 			<InfiniteScrollList
 				items={filteredPosts?.slice(0, POSTS_IN_ONE_BATCH * showPostPages)}
 				scrollingEl={window}
 				canRenderMore={canRenderMore.current}
 				fetchNewPage={fetchNewPage}
 				renderItem={(post) => {
-					return <PostItem key={post.id} post={post} users={users} postsPage />;
+					return <PostItem key={post.id} post={post} users={users} isPostsPage />;
 				}}
 			/>
 			{/* {filteredPosts?.map((post) => {
