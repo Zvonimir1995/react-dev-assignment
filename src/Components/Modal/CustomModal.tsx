@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import './styles.css';
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	children: React.ReactNode;
@@ -9,8 +8,6 @@ type Props = {
 };
 
 const CustomModal = ({ children, closeModal }: Props) => {
-	const navigate = useNavigate();
-
 	useEffect(() => {
 		const body = document.querySelector('body');
 		if (body) {
@@ -29,7 +26,7 @@ const CustomModal = ({ children, closeModal }: Props) => {
 			<div className="modal-content-horizontal-wrapper">
 				<div onClick={closeModal} className="modal-side-backdrop"></div>
 				<div className="modal-content">
-					<div onClick={() => navigate(-1)} className="close-modal-container">
+					<div onClick={closeModal} className="close-modal-container">
 						x
 					</div>
 

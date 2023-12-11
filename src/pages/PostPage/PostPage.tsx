@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
 import { PostService } from '../../api/services/PostService/PostService';
 import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
 
+import './styles.css';
+
 type Props = {
 	users: FormattedUsers;
 };
 
 const PostPage = ({ users }: Props) => {
+	const navigate = useNavigate();
 	const { postId } = useParams();
 
 	const [post, setPost] = useState<PostModel>();
@@ -31,7 +34,21 @@ const PostPage = ({ users }: Props) => {
 
 	if (loading || !post) return <></>;
 
-	return <PostItem users={users} post={post} />;
+	return (
+		<div>
+			<p className="back-to-posts-container">
+				<span
+					className="back-to-posts-link"
+					onClick={() => {
+						navigate('/');
+					}}
+				>
+					Go to to all posts
+				</span>
+			</p>
+			<PostItem users={users} post={post} />
+		</div>
+	);
 };
 
 export default PostPage;
