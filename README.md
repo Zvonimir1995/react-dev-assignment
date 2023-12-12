@@ -1,4 +1,4 @@
-# Fishers network 🐟 🚧
+# React dev Assignment 🐟 🚧
 
 ## 🚀 Application setup
 
