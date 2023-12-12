@@ -27,12 +27,13 @@ const InfiniteScrollList = ({
 
 	useGreetFromComponent(helloMessage, 'InfiniteScrollList.tsx');
 
+	// this required some more work if a scrolling element is not window
 	const handleScroll = useCallback(() => {
 		if (!infiniteScrollListContainerRef.current) return;
 		if (
 			!scrollDebounce.current &&
 			canRenderMore &&
-			infiniteScrollListContainerRef.current.scrollHeight - window.scrollY < window.innerHeight * 2
+			infiniteScrollListContainerRef.current.scrollHeight - window.scrollY < window.innerHeight
 		) {
 			scrollDebounce.current = true;
 			// this would be the place to fetch new batch of posts via API

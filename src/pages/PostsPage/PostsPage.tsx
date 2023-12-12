@@ -78,6 +78,7 @@ const PostsPage = ({ users, helloMessage }: Props) => {
 	return (
 		<div className="posts-page-container">
 			<PostsFilter setFilterPostsField={setFilterPostsField} />
+
 			<InfiniteScrollList
 				items={filteredPosts?.slice(0, POSTS_IN_ONE_BATCH * showPostPages)}
 				scrollingEl={window}
