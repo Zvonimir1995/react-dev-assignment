@@ -1,4 +1,4 @@
-# React dev Assignment 🐟 🚧
+# React dev Assignment 
 
 ## This Application is created to solve a React development task.
 The task exaplanation:
