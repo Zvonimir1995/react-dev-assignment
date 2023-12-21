@@ -10,14 +10,13 @@ import {
 	useNavigate
 } from 'react-router-dom';
 
-import { FormattedUsers } from './api/services/UsersService/interfaces';
-import { UsersService } from './api/services/UsersService/UsersService';
 import CustomModal from './Components/Modal/CustomModal';
 import { useGreetFromComponent } from './global/greetFromCmpHook';
 import Layout from './Layout/Layout';
 import PostPage from './pages/PostPage/PostPage';
 import PostPageModal from './pages/PostPage/PostPageModal';
 import PostsPage from './pages/PostsPage/PostsPage';
+import { useUsers } from './rq/hooks/usersHook';
 
 const App = () => {
 	const navigate = useNavigate();
@@ -25,22 +24,13 @@ const App = () => {
 
 	useGreetFromComponent(undefined, 'App.tsx');
 
+	const { data: users } = useUsers();
+
 	const [lastNonOverlayRoute, setLastNonOverlayRoute] = useState<Location | undefined>();
-	const [users, setUsers] = useState<FormattedUsers>();
 
 	const displayInOverlay = useMemo(() => {
 		return location.state === 'overlay';
 	}, [location]);
-
-	useEffect(() => {
-		UsersService.getUsers().then((users) => {
-			const formattedUsers: FormattedUsers = {};
-			users.forEach((user) => {
-				formattedUsers[user.id] = user;
-			});
-			setUsers(formattedUsers);
-		});
-	}, []);
 
 	useEffect(() => {
 		if (location.state !== 'overlay') {
@@ -72,8 +62,8 @@ const App = () => {
 						</Layout>
 					}
 				>
-					<Route path="posts" element={<PostsPage users={users} />} />
-					<Route path="post/:postId" element={<PostPage users={users} />} />
+					<Route path="posts" element={<PostsPage />} />
+					<Route path="post/:postId" element={<PostPage />} />
 					<Route path="*" element={<Navigate to="posts" replace />} />
 				</Route>
 			</Routes>
@@ -81,7 +71,7 @@ const App = () => {
 			{displayInOverlay && (
 				<CustomModal closeModal={() => navigate(-1)}>
 					<Routes>
-						<Route path="post/:postId" element={<PostPageModal users={users} />} />
+						<Route path="post/:postId" element={<PostPageModal />} />
 					</Routes>
 				</CustomModal>
 			)}

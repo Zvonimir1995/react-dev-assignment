@@ -4,18 +4,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
 import { PostService } from '../../api/services/PostService/PostService';
-import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import PostItem from '../../Components/PostItem/PostItem';
 import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
 type Props = {
-	users: FormattedUsers;
 	helloMessage?: string;
 };
 
-const PostPage = ({ users, helloMessage }: Props) => {
+const PostPage = ({ helloMessage }: Props) => {
 	const navigate = useNavigate();
 	const { postId } = useParams();
 
@@ -50,7 +48,7 @@ const PostPage = ({ users, helloMessage }: Props) => {
 					Go to to all posts
 				</span>
 			</p>
-			<PostItem users={users} post={post} />
+			<PostItem post={post} />
 		</div>
 	);
 };

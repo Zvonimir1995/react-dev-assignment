@@ -2,28 +2,29 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
 import { PostService } from '../../api/services/PostService/PostService';
-import { FormattedUsers } from '../../api/services/UsersService/interfaces';
 import InfiniteScrollList from '../../Components/InfiniteScrollList/InfiniteScrollList';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
 import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+import { useUsers } from '../../rq/hooks/usersHook';
 
 import './styles.css';
 
 type Props = {
-	users: FormattedUsers;
 	helloMessage?: string;
 };
 
 const POSTS_IN_ONE_BATCH = 10;
 
-const PostsPage = ({ users, helloMessage }: Props) => {
+const PostsPage = ({ helloMessage }: Props) => {
 	const [loading, setLoading] = useState(true);
 	const [allPosts, setAllPosts] = useState<PostModel[]>();
 	const [filterPostsField, setFilterPostsField] = useState('');
 	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
 	const [showPostPages, setShowPostPages] = useState<number>(1);
 	const canRenderMore = useRef<boolean>(true);
+
+	const { data: users } = useUsers();
 
 	useGreetFromComponent(helloMessage, 'PostsPage');
 
@@ -41,6 +42,7 @@ const PostsPage = ({ users, helloMessage }: Props) => {
 	}, []);
 
 	useEffect(() => {
+		if (!users) return;
 		if (filterPostsField === '') {
 			setFilteredPosts(allPosts);
 			return;
@@ -85,7 +87,7 @@ const PostsPage = ({ users, helloMessage }: Props) => {
 				canRenderMore={canRenderMore.current}
 				fetchNewPage={fetchNewPage}
 				renderItem={(post) => {
-					return <PostItem key={post.id} post={post} users={users} isPostsPage />;
+					return <PostItem key={post.id} post={post} isPostsPage />;
 				}}
 			/>
 		</div>
