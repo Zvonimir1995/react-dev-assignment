@@ -1,46 +1,105 @@
-# Getting Started with Create React App
+# React dev Assignment 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## This Application is created to solve a React development task.
+The task exaplanation:
 
-## Available Scripts
+Overview
+- Create a React application that shows a list of Posts and associated post Comments
+that are fetched via provided API.
 
-In the project directory, you can run:
+- Push the code to github + describe the build/run process in a Readme file
 
-### `npm start`
+- Write approximate time needed to finish the assignment
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Features
 
-### `npm test`
+- Create 2 routes: '/posts' & 'post/{id}'.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Posts route should show a list of posts and associated comments. Every post should
+have a user's name associated.
 
-### `npm run build`
+- Create a search input and filter posts by user name using an input field.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Clicking a post will redirect to a new page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- MUST! EVERY component once rendered must log in the console 'Hello from <insert
+component name>' and should be overridable per component. The part 'Hello from'
+must be sent to a component via props and defined only once within the scope of
+the application. It should look something like console.log('${propsmessage}
+${componentName}'). Feel free to name the variables as you see fit.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Conditions
 
-### `npm run eject`
+- The UI is up to you. This is a React oriented test but at least a minimally usable
+layout that does not break and is appealing to the eye is required.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Do not use any 3rd party UI component libraries. The UI of the app can be very
+minimal and does not require 3rd party component libraries.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Do not use CSS utility libraries (e.g. Bootstrap, Tailwind).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- When writing components try to find a way to make them reusable and resilient,
+meaning they can easily be integrated into other applications. This part of the test is
+very important.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Try to use some of the more advanced concepts like HOC, Render props, Compound
+components etc.
 
-## Learn More
+- You are free to use any React bootstrapping tool (like create-react-app or vite)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- It is also highly recommended to use TypeScript. If not, make sure to use type
+checking With PropTypes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- You are free to structure the code in any way you like (folder structure) but try to
+make it as real-world as possible
+
+- You are free to include any tools that you use in general that can help you work on
+this task like linters, code style checkers, UI component testers etc.
+
+
+API
+
+- [JSONPlaceholder](https://jsonplaceholder.typicode.com/)
+
+### Time needed to finish the assignment
+
+- Slightly more than 8 hours due to self added tasks and their complexity
+  
+
+## Interesting solutions
+
+- parallel routes ( in this case "/posts" and "/post/:id" - rendering a "/post/:id" route without unmounting "/posts" route )
+
+- custom infinite scroll component that uses render prop
+
+- custom hooks ( useGreetFromComponent )
+
+- simulating paginations ( since the API does not provide a pagination, all posts are fetched, and instead of firing 100 requests to fetch the comments, pagination is simulated and 10 by 10 posts are being rendered and associated comments fetched )
+
+- filtering is triggered after certain time has passed after the users last change on the filter text input
+
+## 🚀 Application setup
+
+Install all the dependencies
+```bash
+npm install
+```
+To start the application in the project root run:
+```bash
+npm start
+```
+
+## 📦 Application build
+To build the application run:
+```
+npm run build
+```
+
+## 📓 Developer notes
+
+This application is built with:
+- [Create React App](https://facebook.github.io/create-react-app/docs/getting-started).
+- [React](https://react.dev/blog/2023/03/16/introducing-react-dev)
+
+For the rest of dependencies check `package.json`
