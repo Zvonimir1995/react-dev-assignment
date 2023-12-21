@@ -34,10 +34,6 @@ Conditions
 - The UI is up to you. This is a React oriented test but at least a minimally usable
 layout that does not break and is appealing to the eye is required.
 
-- Do not use any 3rd party state management solution. Again this is a React oriented
-test. That does not mean state management can't be handled in a well structured
-way.
-
 - Do not use any 3rd party UI component libraries. The UI of the app can be very
 minimal and does not require 3rd party component libraries.
 
@@ -57,7 +53,6 @@ checking With PropTypes
 
 - You are free to structure the code in any way you like (folder structure) but try to
 make it as real-world as possible
-
 
 - You are free to include any tools that you use in general that can help you work on
 this task like linters, code style checkers, UI component testers etc.
