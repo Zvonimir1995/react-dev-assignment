@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { CommentService } from '../../api/services/CommentSerivce/CommentService';
-import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
 import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+import { useComments } from '../../rq/hooks/commentsHook';
 
 import CommentItem from './CommentItem';
 
@@ -13,24 +12,13 @@ type Props = {
 };
 
 const PostComments = ({ postId, isPostsPage, helloMessage }: Props) => {
-	const [comments, setComments] = useState<CommentModel[]>();
-	const [commentsLoading, setCommentsLoading] = useState(true);
 	const [showComments, setShowComments] = useState(!isPostsPage);
 
 	useGreetFromComponent(helloMessage, 'PostComments.tsx');
 
-	useEffect(() => {
-		CommentService.getComments(postId)
-			.then((response) => {
-				setComments(response);
-				setCommentsLoading(false);
-			})
-			.catch(() => {
-				setCommentsLoading(false);
-			});
-	}, [postId]);
+	const { data: comments } = useComments(postId);
 
-	if (commentsLoading || !comments) {
+	if (!comments) {
 		return <></>;
 	}
 

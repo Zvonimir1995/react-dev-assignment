@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { PostModel } from '../../api/services/PostService/interfaces';
-import { PostService } from '../../api/services/PostService/PostService';
 import PostItem from '../../Components/PostItem/PostItem';
 import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+import { usePost } from '../../rq/hooks/postsHook';
 
 type Props = {
 	helloMessage?: string;
@@ -14,24 +13,13 @@ type Props = {
 const PostPageModal = ({ helloMessage }: Props) => {
 	const { postId } = useParams();
 
-	const [post, setPost] = useState<PostModel>();
-	const [loading, setLoading] = useState(true);
-
 	useGreetFromComponent(helloMessage, 'PostPageModal.tsx');
 
-	useEffect(() => {
-		PostService.getPost({ postId: Number(postId) })
-			.then((response) => {
-				setPost(response);
-				setLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				setLoading(false);
-			});
-	}, [postId]);
+	const { data: post } = usePost({
+		postId: Number(postId)
+	});
 
-	if (loading || !post) return <></>;
+	if (!post) return <></>;
 
 	return <PostItem post={post} />;
 };

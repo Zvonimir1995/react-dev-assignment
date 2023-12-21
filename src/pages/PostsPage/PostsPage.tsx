@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { PostModel } from '../../api/services/PostService/interfaces';
-import { PostService } from '../../api/services/PostService/PostService';
 import InfiniteScrollList from '../../Components/InfiniteScrollList/InfiniteScrollList';
 import PostItem from '../../Components/PostItem/PostItem';
 import PostsFilter from '../../Components/PostsFilter/PostsFilter';
 import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+import { usePosts } from '../../rq/hooks/postsHook';
 import { useUsers } from '../../rq/hooks/usersHook';
 
 import './styles.css';
@@ -17,52 +16,41 @@ type Props = {
 const POSTS_IN_ONE_BATCH = 10;
 
 const PostsPage = ({ helloMessage }: Props) => {
-	const [loading, setLoading] = useState(true);
-	const [allPosts, setAllPosts] = useState<PostModel[]>();
 	const [filterPostsField, setFilterPostsField] = useState('');
-	const [filteredPosts, setFilteredPosts] = useState<PostModel[]>();
+	const [filterPostsByUserIds, setFilterPostsByUserIds] = useState<number[] | undefined>();
 	const [showPostPages, setShowPostPages] = useState<number>(1);
 	const canRenderMore = useRef<boolean>(true);
 
 	const { data: users } = useUsers();
+	const { data: posts } = usePosts({
+		queryParams: {
+			userId: filterPostsByUserIds
+		}
+	});
 
 	useGreetFromComponent(helloMessage, 'PostsPage');
 
 	useEffect(() => {
-		PostService.getPosts()
-			.then((res) => {
-				setAllPosts(res);
-				setFilteredPosts(res);
-				setLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				setLoading(false);
-			});
-	}, []);
-
-	useEffect(() => {
 		if (!users) return;
-		if (filterPostsField === '') {
-			setFilteredPosts(allPosts);
-			return;
-		}
-		const filteredUserIds: number[] = [];
-		Object.keys(users).forEach((key) => {
-			if (users[key].name.toLowerCase().includes(filterPostsField.toLowerCase())) {
-				filteredUserIds.push(users[key].id);
+
+		setFilterPostsByUserIds(() => {
+			if (filterPostsField === '') {
+				return undefined;
+			} else {
+				const filteredUserIds: number[] = [];
+				Object.keys(users).forEach((key) => {
+					if (users[key].name.toLowerCase().includes(filterPostsField.toLowerCase())) {
+						filteredUserIds.push(users[key].id);
+					}
+				});
+				return filteredUserIds;
 			}
 		});
-		PostService.getPosts({
-			queryParams: {
-				userId: filteredUserIds
-			}
-		}).then((res) => {
-			setFilteredPosts(res);
-		});
-	}, [filterPostsField, allPosts, users]);
+		setShowPostPages(1);
+	}, [filterPostsField, users]);
 
 	const fetchNewPage: () => Promise<null> = () => {
+		// simulate fetching a new page of posts
 		setShowPostPages((prevState) => {
 			const newState = prevState + 1;
 			if (POSTS_IN_ONE_BATCH * newState >= 100) {
@@ -73,16 +61,12 @@ const PostsPage = ({ helloMessage }: Props) => {
 		return new Promise((resolve) => resolve(null));
 	};
 
-	if (loading || !users) {
-		return <></>;
-	}
-
 	return (
 		<div className="posts-page-container">
 			<PostsFilter setFilterPostsField={setFilterPostsField} />
 
 			<InfiniteScrollList
-				items={filteredPosts?.slice(0, POSTS_IN_ONE_BATCH * showPostPages)}
+				items={posts?.slice(0, POSTS_IN_ONE_BATCH * showPostPages)}
 				scrollingEl={window}
 				canRenderMore={canRenderMore.current}
 				fetchNewPage={fetchNewPage}

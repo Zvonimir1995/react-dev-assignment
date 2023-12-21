@@ -5,7 +5,7 @@ import { PostService } from '../../api/services/PostService/PostService';
 import { queryKeys } from '../constants';
 
 export const usePosts = (data: GetPostsData) => {
-	return useQuery([queryKeys.posts, data.queryParams], () => PostService.getPosts());
+	return useQuery([queryKeys.posts, data.queryParams], () => PostService.getPosts(data));
 };
 
 export const usePost = (data: GetPostData) => {

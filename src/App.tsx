@@ -39,6 +39,7 @@ const App = () => {
 	}, [location]);
 
 	useEffect(() => {
+		// disable scrolling on components in the background
 		const body = document.querySelector('body') as HTMLElement;
 		if (displayInOverlay) {
 			body.style.overflow = 'hidden';
