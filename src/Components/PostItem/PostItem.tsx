@@ -34,7 +34,7 @@ const PostItem = ({ post, isPostsPage }: Props) => {
 		>
 			<h3>{post.title}</h3>
 			{post.customPost ? (
-				<div dangerouslySetInnerHTML={{ __html: post.body }}></div>
+				<div className="ProseMirror" dangerouslySetInnerHTML={{ __html: post.body }}></div>
 			) : (
 				<p>{post.body}</p>
 			)}

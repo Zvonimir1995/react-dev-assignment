@@ -78,3 +78,31 @@ footer {
 		padding-top: 3rem;
 	}
 }
+
+.ProseMirror ul,
+ol {
+	margin-left: 1.5rem;
+}
+
+.ProseMirror .mention {
+	/*  text-fn-blue-400 border-fn-blue-400 cursor-pointer hover:opacity-60 */
+	color: #0672b8;
+	border: 1px solid #0672b8;
+	cursor: pointer;
+	border-radius: 0.4rem;
+	box-decoration-break: clone;
+	padding: 0 0.3rem 0.1rem 0.3rem;
+}
+
+.ProseMirror .mention:hover {
+	opacity: 0.6;
+}
+
+.ProseMirror a {
+	text-decoration: underline;
+	color: #2196f3;
+	cursor: pointer;
+}
+.ProseMirror a:hover {
+	opacity: 0.6;
+}
