@@ -1,6 +1,7 @@
 export interface IPostService {
 	getPosts: (data?: GetPostsData) => Promise<PostModel[]>;
 	getPost: (data: GetPostData) => Promise<PostModel>;
+	createPost: (data: CreatePostData) => Promise<PostModel>;
 }
 
 export interface PostModel {
@@ -8,6 +9,7 @@ export interface PostModel {
 	id: number;
 	title: string;
 	body: string;
+	customPost?: boolean;
 }
 
 export interface GetPostsData {
@@ -19,3 +21,9 @@ export interface GetPostsData {
 export interface GetPostData {
 	postId: number;
 }
+
+export type CreatePostData = {
+	title: 'Your Created Post';
+	body: string;
+	userId: number;
+};

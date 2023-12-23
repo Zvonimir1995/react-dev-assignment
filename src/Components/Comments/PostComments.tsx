@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 import { useComments } from '../../rq/hooks/commentsHook';
 
 import CommentItem from './CommentItem';
@@ -11,10 +11,10 @@ type Props = {
 	helloMessage?: string;
 };
 
-const PostComments = ({ postId, isPostsPage, helloMessage }: Props) => {
+const PostComments = ({ postId, isPostsPage }: Props) => {
 	const [showComments, setShowComments] = useState(!isPostsPage);
 
-	useGreetFromComponent(helloMessage, 'PostComments.tsx');
+	// useGreetFromComponent(helloMessage, 'PostComments.tsx');
 
 	const { data: comments } = useComments(postId);
 

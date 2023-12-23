@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CommentModel } from '../../api/services/CommentSerivce/interfaces';
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
@@ -10,8 +10,8 @@ type Props = {
 	helloMessage?: string;
 };
 
-const CommentItem = ({ comment, helloMessage }: Props) => {
-	useGreetFromComponent(helloMessage, 'CommentItem.tsx');
+const CommentItem = ({ comment }: Props) => {
+	// useGreetFromComponent(helloMessage, 'CommentItem.tsx');
 
 	return (
 		<div className="comment-item">

@@ -11,6 +11,16 @@ export const useUsers = () => {
 		users.forEach((user) => {
 			formattedUsers[user.id] = user;
 		});
+		// create a dummy user
+		formattedUsers['11'] = {
+			...formattedUsers['10'],
+			id: 11,
+			name: 'Dummy User',
+			email: 'dummy.user@gmail.com',
+			username: 'dum dum',
+			phone: '011123123',
+			website: 'https://github.com/Zvonimir1995'
+		};
 		return formattedUsers;
 	});
 };

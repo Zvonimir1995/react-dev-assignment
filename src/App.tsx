@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 
 import CustomModal from './Components/Modal/CustomModal';
-import { useGreetFromComponent } from './global/greetFromCmpHook';
+// import { useGreetFromComponent } from './global/greetFromCmpHook';
 import Layout from './Layout/Layout';
 import PostPage from './pages/PostPage/PostPage';
 import PostPageModal from './pages/PostPage/PostPageModal';
@@ -22,7 +22,7 @@ const App = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	useGreetFromComponent(undefined, 'App.tsx');
+	// useGreetFromComponent(undefined, 'App.tsx');
 
 	const { data: users } = useUsers();
 
@@ -37,16 +37,6 @@ const App = () => {
 			setLastNonOverlayRoute(location);
 		}
 	}, [location]);
-
-	useEffect(() => {
-		// disable scrolling on components in the background
-		const body = document.querySelector('body') as HTMLElement;
-		if (displayInOverlay) {
-			body.style.overflow = 'hidden';
-		} else {
-			body.style.overflow = 'auto';
-		}
-	}, [displayInOverlay]);
 
 	if (!users) {
 		// wait for users to be loaded

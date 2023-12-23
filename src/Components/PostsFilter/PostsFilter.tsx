@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+
 import './styles.css';
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 type Props = {
 	setFilterPostsField: React.Dispatch<React.SetStateAction<string>>;
 	helloMessage?: string;
 };
 
-const PostsFilter = ({ setFilterPostsField, helloMessage }: Props) => {
+const PostsFilter = ({ setFilterPostsField }: Props) => {
 	const [filterByUserInputValue, setFilterByUserInputValue] = useState('');
 	const [requestTimeout, setRequestTimeout] = useState<NodeJS.Timeout>();
 
-	useGreetFromComponent(helloMessage, 'PostsFilter.tsx');
+	// useGreetFromComponent(helloMessage, 'PostsFilter.tsx');
 
 	const filterInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (requestTimeout) {

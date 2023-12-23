@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { PostModel } from '../../api/services/PostService/interfaces';
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
@@ -19,13 +19,12 @@ const InfiniteScrollList = ({
 	renderItem,
 	scrollingEl,
 	canRenderMore,
-	fetchNewPage,
-	helloMessage
+	fetchNewPage
 }: Props) => {
 	const scrollDebounce = useRef<boolean>(false);
 	const infiniteScrollListContainerRef = useRef<HTMLDivElement>(null);
 
-	useGreetFromComponent(helloMessage, 'InfiniteScrollList.tsx');
+	// useGreetFromComponent(helloMessage, 'InfiniteScrollList.tsx');
 
 	// this required some more work if a scrolling element is not window
 	const handleScroll = useCallback(() => {

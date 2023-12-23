@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 
 import './styles.css';
 
@@ -10,17 +10,19 @@ type Props = {
 	helloMessage?: string;
 };
 
-const CustomModal = ({ children, closeModal, helloMessage }: Props) => {
-	useGreetFromComponent(helloMessage, 'CustomModal.tsx');
+const CustomModal = ({ children, closeModal }: Props) => {
+	// useGreetFromComponent(helloMessage, 'CustomModal.tsx');
 
 	useEffect(() => {
 		const body = document.querySelector('body');
 		if (body) {
 			body.style.paddingRight = '6px';
+			body.style.overflow = 'hidden';
 		}
 		return () => {
 			if (body) {
 				body.style.paddingRight = '0px';
+				body.style.overflow = 'auto';
 			}
 		};
 	}, []);

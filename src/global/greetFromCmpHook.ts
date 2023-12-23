@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { HELLO_MESSAGE } from './constants';
+const HELLO_MESSAGE = 'Hello from';
 
 export const useGreetFromComponent = (helloMessage = HELLO_MESSAGE, componentName: string) => {
 	return useEffect(() => {

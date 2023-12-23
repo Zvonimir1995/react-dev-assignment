@@ -4,10 +4,10 @@
 	gap: 2rem;
 }
 
-.posts-page-container .post-item {
+.posts-page-container .post-item:not(.custom) {
 	cursor: pointer;
 }
 
-.posts-page-container .post-item:hover {
+.posts-page-container .post-item:not(.custom):hover {
 	background-color: #f8f8f8;
 }

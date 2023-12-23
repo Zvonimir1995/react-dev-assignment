@@ -3,20 +3,20 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import PostItem from '../../Components/PostItem/PostItem';
-import { useGreetFromComponent } from '../../global/greetFromCmpHook';
+// import { useGreetFromComponent } from '../../global/greetFromCmpHook';
 import { usePost } from '../../rq/hooks/postsHook';
 
 import './styles.css';
 
-type Props = {
-	helloMessage?: string;
-};
+// type Props = {
+// 	helloMessage?: string;
+// };
 
-const PostPage = ({ helloMessage }: Props) => {
+const PostPage = () => {
 	const navigate = useNavigate();
 	const { postId } = useParams();
 
-	useGreetFromComponent(helloMessage, 'PostPage.tsx');
+	// useGreetFromComponent(helloMessage, 'PostPage.tsx');
 
 	const { data: post } = usePost({
 		postId: Number(postId)
