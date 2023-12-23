@@ -28,7 +28,6 @@ const CreatePostModal = ({ closeModal }: Props) => {
 				onSuccess: (resData) => {
 					swapNewlyCreatedPost({
 						...resData,
-						id: 101,
 						customPost: true
 					});
 					closeModal();
